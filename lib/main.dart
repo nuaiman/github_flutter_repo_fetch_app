@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'features/get_github_repos/view/home_view.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -15,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Scaffold(),
+      home: const HomeView(),
     );
   }
 }
