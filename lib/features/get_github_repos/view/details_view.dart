@@ -1,10 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:github_app_nuaiman_ashiq/model/github_repo_model.dart';
+import 'package:intl/intl.dart';
 
 class DetailsView extends StatelessWidget {
-  const DetailsView({super.key, required this.repo});
+  DetailsView({super.key, required this.repo});
 
   final GithubRepo repo;
+
+  var outputFormat = DateFormat('dd/MM/yy hh:mm a');
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,8 @@ class DetailsView extends StatelessWidget {
                 const SizedBox(height: 20),
                 Card(
                   child: ListTile(
-                    title: Text(repo.updatedAt),
+                    title: Text(
+                        outputFormat.format(DateTime.parse(repo.updatedAt))),
                     subtitle: Text(repo.description),
                   ),
                 ),
