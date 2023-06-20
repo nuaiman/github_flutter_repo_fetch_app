@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:github_app_nuaiman_ashiq/features/get_github_repos/view/details_view.dart';
 import 'package:github_app_nuaiman_ashiq/model/github_repo_model.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controller/get_github_repo_controller.dart';
 
@@ -35,8 +36,24 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     checkConnectivity();
+    getFilter();
 
     super.initState();
+  }
+
+  void changeFilter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      sortByStar = !sortByStar;
+    });
+
+    await prefs.setBool('filter', sortByStar);
+  }
+
+  void getFilter() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    sortByStar = prefs.getBool('filter') ?? false;
   }
 
   @override
@@ -46,11 +63,7 @@ class _HomeViewState extends State<HomeView> {
         // backgroundColor: Colors.black,
         actions: [
           IconButton(
-            onPressed: () {
-              setState(() {
-                sortByStar = !sortByStar;
-              });
-            },
+            onPressed: changeFilter,
             icon: const Icon(Icons.sort),
           ),
         ],
